@@ -1,5 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.smishing_identifier_application">
+    
+    <!--Permission for Receving SMS-->
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+
+    <!--Permission for sending SMS-->
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+
+    <!--Permission for Reading SMS-->>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+
    <application
         android:label="smishing_identifier_application"
         android:name="${applicationName}"
@@ -30,5 +40,13 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <!--Receiver for incoming SMS Permission-->
+        <receiver android:name="com.shounakmulay.telephony.sms.IncomingSmsReceiver"
+		    android:permission="android.permission.BROADCAST_SMS" android:exported="true">
+		    <intent-filter>
+			<action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+		    </intent-filter>
+		</receiver>
     </application>
 </manifest>
