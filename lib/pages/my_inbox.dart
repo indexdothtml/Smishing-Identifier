@@ -16,6 +16,7 @@ class _SMSInboxState extends State<SMSInbox> {
   @override
   void initState() {
     super.initState();
+    initListenIncomingSMS();
   }
 
   @override
@@ -52,6 +53,7 @@ class _SMSInboxState extends State<SMSInbox> {
                     messages[index].body.toString(),
                     maxLines: 2,
                   ),
+                  style: ListTileStyle.drawer,
                 ),
               );
             },
@@ -66,8 +68,17 @@ class _SMSInboxState extends State<SMSInbox> {
       SmsColumn.ADDRESS,
       SmsColumn.BODY
     ], sortOrder: [
-      OrderBy(SmsColumn.ADDRESS, sort: Sort.ASC),
-      OrderBy(SmsColumn.BODY, sort: Sort.ASC)
+      OrderBy(SmsColumn.ID, sort: Sort.DESC),
     ]);
+  }
+
+  //We can apply next logic here in onMessage function on receiving new message and check for message is safe or unsafe. 
+  onMessage(SmsMessage) async {
+    setState(() {});
+  }
+
+  Future<void> initListenIncomingSMS() async {
+    telephony.listenIncomingSms(
+        onNewMessage: onMessage, listenInBackground: false);
   }
 }
