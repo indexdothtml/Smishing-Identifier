@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:smishing_identifier_application/utility/extracter.dart';
 import 'package:telephony/telephony.dart';
+
+String responseResult = "";
 
 class SMSInbox extends StatefulWidget {
   const SMSInbox({Key? key}) : super(key: key);
@@ -41,21 +44,44 @@ class _SMSInboxState extends State<SMSInbox> {
             ),
             itemCount: messages.length,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.textsms,
-                    color: Colors.deepPurple,
+              dynamic fromExtractor() async {
+                responseResult =
+                    await extractLink(messages[index].body.toString());
+              }
+
+              fromExtractor();
+              print(responseResult);
+              if (responseResult == "MALWARE") {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.warning,
+                      color: Colors.redAccent,
+                    ),
+                    title: Text(messages[index].address.toString()),
+                    subtitle: Text(
+                      messages[index].body.toString(),
+                    ),
+                    style: ListTileStyle.drawer,
                   ),
-                  title: Text(messages[index].address.toString()),
-                  subtitle: Text(
-                    messages[index].body.toString(),
-                    maxLines: 2,
+                );
+              } else {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.textsms,
+                      color: Colors.deepPurple,
+                    ),
+                    title: Text(messages[index].address.toString()),
+                    subtitle: Text(
+                      messages[index].body.toString(),
+                    ),
+                    style: ListTileStyle.drawer,
                   ),
-                  style: ListTileStyle.drawer,
-                ),
-              );
+                );
+              }
             },
           );
         },
@@ -66,14 +92,13 @@ class _SMSInboxState extends State<SMSInbox> {
   chkInbox() async {
     messages = await telephony.getInboxSms(columns: [
       SmsColumn.ADDRESS,
-      SmsColumn.BODY
+      SmsColumn.BODY,
     ], sortOrder: [
       OrderBy(SmsColumn.ID, sort: Sort.DESC),
     ]);
   }
 
-  //We can apply next logic here in onMessage function on receiving new message and check for message is safe or unsafe. 
-  onMessage(SmsMessage) async {
+  onMessage(SmsMessage newMessage) async {
     setState(() {});
   }
 
