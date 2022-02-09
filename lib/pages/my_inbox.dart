@@ -14,8 +14,6 @@ class _SMSInboxState extends State<SMSInbox> {
   final Telephony telephony = Telephony.instance;
   UtilityController utilityController = UtilityController();
 
-  Map<int, String> safeUnsafeData = {};
-
   @override
   void initState() {
     super.initState();
@@ -47,7 +45,7 @@ class _SMSInboxState extends State<SMSInbox> {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListTile(
-                    leading: Icon(
+                    leading: const Icon(
                       Icons.textsms,
                       color: Colors.deepPurple,
                     ),
@@ -55,7 +53,7 @@ class _SMSInboxState extends State<SMSInbox> {
                         utilityController.messages[index].address.toString()),
                     subtitle: Text(
                       utilityController.messages[index].body.toString(),
-                      maxLines: 3,
+                      maxLines: 2,
                     ),
                     style: ListTileStyle.drawer,
                     onTap: () async {
@@ -63,70 +61,12 @@ class _SMSInboxState extends State<SMSInbox> {
                           await utilityController.fromExtracter(index);
                       showSMSDialog(context, utilityController.messages,
                           responseResult, index);
-                      // callFromExtracterFunction(index) async {
-
-                      // }
                     },
                   ),
                 );
               },
             );
           }),
-
-      // body: ListView.separated(
-      //   separatorBuilder: (context, index) => const Divider(
-      //     color: Colors.black,
-      //   ),
-      //   itemCount: utilityController.messages.length,
-      //   itemBuilder: (context, index) {
-      //     // callFromExtracterFunction(messages, index);
-
-      //     print(
-      //         "2) I AM INBOX, AND I GOT THE FINAL RESULT FROM EXTRACTER : ${safeUnsafeData[index]} FOR INDEX $index"); //DEBUG
-      //     if (safeUnsafeData[index] == "UNSAFE") {
-      //       return Padding(
-      //         padding: const EdgeInsets.all(8.0),
-      //         child: ListTile(
-      //           leading: const Icon(
-      //             Icons.warning,
-      //             color: Colors.redAccent,
-      //           ),
-      //           title:
-      //               Text(utilityController.messages[index].address.toString()),
-      //           subtitle: Text(
-      //             utilityController.messages[index].body.toString(),
-      //           ),
-      //           trailing: Text(index.toString()),
-      //           style: ListTileStyle.drawer,
-      //         ),
-      //       );
-      //     } else {
-      //       return Padding(
-      //         padding: const EdgeInsets.all(8.0),
-      //         child: ListTile(
-      //           leading: const Icon(
-      //             Icons.textsms,
-      //             color: Colors.deepPurple,
-      //           ),
-      //           title:
-      //               Text(utilityController.messages[index].address.toString()),
-      //           subtitle: Text(
-      //             utilityController.messages[index].body.toString(),
-      //           ),
-      //           trailing: Text(index.toString()),
-      //           style: ListTileStyle.drawer,
-      //         ),
-      //       );
-      //     }
-      //   },
-      // ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     print(
-      //         "CALLING SICONTROLLER FUNCTION INSIDE UTILITY CONTROLLER CLASS");
-      //     safeUnsafeData = utilityController.siController();
-      //   },
-      // ),
     );
   }
 
