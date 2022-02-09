@@ -1,7 +1,10 @@
-import 'package:smishing_identifier_application/utility/api_request.dart';
+import 'package:smishing_identifier_application/utility/storage_handler.dart';
+
+AppDataStorageManager appDataStorageManager = AppDataStorageManager();
 
 Future<String> extractLink(String givenbody) async {
-  String link = "";
+  print("1) I GOT THIS BODY : $givenbody");
+  String url = "";
 
   givenbody = givenbody.replaceAll("\n", ' ');
   givenbody = givenbody.replaceAll("\t", ' ');
@@ -13,13 +16,18 @@ Future<String> extractLink(String givenbody) async {
         keywords[i].contains('.in') ||
         keywords[i].contains('.org') ||
         keywords[i].contains('.xyz')) {
-      link = keywords[i];
+      url = keywords[i];
+      break;
     }
   }
-  print(link);
-  if (link.isNotEmpty) {
-    return await makeRequest(link);
+  if (url.isNotEmpty) {
+    print("2) I AM EXTRACTER, I GOT THE URL INSIDE BODY : $url");
+    print("3) I AM EXTRACTER, NOW I AM SENDING THIS URL TO STORAGE READER : $url");
+    String resultFromStorage = await appDataStorageManager.readFromFile(url);
+    print("4) I AM EXTRACTER, I GOT THE RESULT FROM STORAGE : $resultFromStorage FOR URL $url");
+    return resultFromStorage;
   } else {
+    print("2) I AM EXTRACTER, NOT FOUND ANY URL INSIDE BODY");
     return "No Link Found";
   }
 }
