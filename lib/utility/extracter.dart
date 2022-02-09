@@ -10,7 +10,7 @@ Future<String> extractLink(String givenbody) async {
   givenbody = givenbody.replaceAll("\t", ' ');
 
   List<String> keywords = givenbody.split(' ');
-  
+
   for (int i = 0; i < keywords.length; i++) {
     if (keywords[i].contains('.com') ||
         keywords[i].contains('.in') ||
@@ -22,9 +22,11 @@ Future<String> extractLink(String givenbody) async {
   }
   if (url.isNotEmpty) {
     print("2) I AM EXTRACTER, I GOT THE URL INSIDE BODY : $url");
-    print("3) I AM EXTRACTER, NOW I AM SENDING THIS URL TO STORAGE READER : $url");
+    print(
+        "3) I AM EXTRACTER, NOW I AM SENDING THIS URL TO STORAGE READER : $url");
     String resultFromStorage = await appDataStorageManager.readFromFile(url);
-    print("4) I AM EXTRACTER, I GOT THE RESULT FROM STORAGE : $resultFromStorage FOR URL $url");
+    print(
+        "4) I AM EXTRACTER, I GOT THE RESULT FROM STORAGE : $resultFromStorage FOR URL $url");
     return resultFromStorage;
   } else {
     print("2) I AM EXTRACTER, NOT FOUND ANY URL INSIDE BODY");

@@ -20,5 +20,4 @@ class UtilityController {
         await extractLink((messages[index].body).toString());
     return responseResult;
   }
-
 } // UtilityController class
