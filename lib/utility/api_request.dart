@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'package:smishing_identifier_application/utility/storage_handler.dart';
 
 AppDataStorageManager appDataStorageManager = AppDataStorageManager();
@@ -26,9 +24,12 @@ Future<String> makeRequest(requestedUrl) async {
   final response = await http.post(url, headers: header, body: body);
   final jsonData = jsonDecode(response.body);
   if (jsonData.toString() == '{}') {
+    print("1) I AM API, THE URL IS GIVEN TO ME IS SAFE : $requestedUrl");
     return "SAFE";
   } else {
-    appDataStorageManager.writeToFile(requestedUrl);
+    print("1) I AM API, THE URL IS GIVEN TO ME IS UNSAFE : $requestedUrl");
+    print("2) I AM API, STORING URL TO FILE : $requestedUrl");
+    appDataStorageManager.writeToFile(" " + requestedUrl);
     return jsonData["matches"][0]["threatType"];
   }
 }
