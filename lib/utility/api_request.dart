@@ -24,11 +24,8 @@ Future<String> makeRequest(requestedUrl) async {
   final response = await http.post(url, headers: header, body: body);
   final jsonData = jsonDecode(response.body);
   if (jsonData.toString() == '{}') {
-    print("1) I AM API, THE URL IS GIVEN TO ME IS SAFE : $requestedUrl");
     return "SAFE";
   } else {
-    print("1) I AM API, THE URL IS GIVEN TO ME IS UNSAFE : $requestedUrl");
-    print("2) I AM API, STORING URL TO FILE : $requestedUrl");
     appDataStorageManager.writeToFile(" " + requestedUrl);
     return jsonData["matches"][0]["threatType"];
   }
