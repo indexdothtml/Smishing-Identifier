@@ -14,7 +14,8 @@ Future<String> extractLink(String givenbody) async {
     if (keywords[i].contains('.com') ||
         keywords[i].contains('.in') ||
         keywords[i].contains('.org') ||
-        keywords[i].contains('.co') ||
+        keywords[i].contains('.ly') ||
+        keywords[i].contains('.at') ||
         keywords[i].contains('http://') ||
         keywords[i].contains('https://') ||
         keywords[i].contains('.xyz')) {
