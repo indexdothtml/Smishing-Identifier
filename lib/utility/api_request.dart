@@ -21,6 +21,7 @@ Future<String> makeRequest(requestedUrl) async {
     }
   });
 
+  try{
   final response = await http.post(url, headers: header, body: body);
   final jsonData = jsonDecode(response.body);
   if (jsonData.toString() == '{}') {
@@ -29,4 +30,10 @@ Future<String> makeRequest(requestedUrl) async {
     appDataStorageManager.writeToFile(" " + requestedUrl);
     return jsonData["matches"][0]["threatType"];
   }
+  }
+  catch(error)
+  {
+   return "Error While Requesting To Server \n Check Internet Connection."; 
+  }
+  
 }
