@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'package:smishing_identifier_application/utility/api_request.dart';
+import 'package:smishing_identifier_application/utility/check_redirection.dart';
 
 class AppDataStorageManager {
   Future<String> get _localPath async {
@@ -31,9 +31,8 @@ class AppDataStorageManager {
       if (fileContents.contains(url)) {
         return "UNSAFE";
       } else {
-        final apiResponse = await makeRequest(url);
-
-        if (apiResponse == "MALWARE" || apiResponse == "SOCIAL_ENGINEERING") {
+        final result = await redirectDetective(url);
+        if (result == "MALWARE" || result == "SOCIAL_ENGINEERING") {
           return "UNSAFE";
         } else {
           return "SAFE";
