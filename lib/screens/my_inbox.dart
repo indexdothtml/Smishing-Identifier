@@ -60,11 +60,9 @@ class _SMSInboxState extends State<SMSInbox> {
                     onTap: () async {
                       isWaiting = true;
                       waitASecond(context, isWaiting, null, "", index);
-                      String responseResult =
-                          await utilityController.fromExtracter(index);
+                      String responseResult = await utilityController.fromExtracter(index);
                       isWaiting = false;
                       waitASecond(context, isWaiting, utilityController.messages, responseResult, index);
-                      
                     },
                   ),
                 );

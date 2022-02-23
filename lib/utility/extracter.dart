@@ -37,9 +37,9 @@ Future<String> extractLink(String givenbody) async {
         keywords[i].contains('.x') ||
         keywords[i].contains('.y') ||
         keywords[i].contains('.z')) {
-          url = keywords[i];
-          break;
-        }
+      url = keywords[i];
+      break;
+    }
   }
   if (url.isNotEmpty) {
     String resultFromStorage = await appDataStorageManager.readFromFile(url);

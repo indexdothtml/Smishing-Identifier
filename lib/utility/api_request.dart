@@ -6,8 +6,7 @@ import 'package:smishing_identifier_application/utility/storage_handler.dart';
 AppDataStorageManager appDataStorageManager = AppDataStorageManager();
 
 Future<String> makeRequest(requestedUrl) async {
-  final url = Uri.parse(
-      "https://safebrowsing.googleapis.com/v4/threatMatches:find?key=AIzaSyAvPztv_OzAJojxmHvNyi1De20qzubMLaY");
+  final url = Uri.parse("https://safebrowsing.googleapis.com/v4/threatMatches:find?key=AIzaSyAvPztv_OzAJojxmHvNyi1De20qzubMLaY");
   final header = {"Content-Type": "application/json"};
   final body = jsonEncode({
     "client": {"clientId": "SmishingIdentifier", "clientVersion": "1.0.0"},
@@ -21,19 +20,16 @@ Future<String> makeRequest(requestedUrl) async {
     }
   });
 
-  try{
-  final response = await http.post(url, headers: header, body: body);
-  final jsonData = jsonDecode(response.body);
-  if (jsonData.toString() == '{}') {
-    return "SAFE";
-  } else {
-    appDataStorageManager.writeToFile(" " + requestedUrl);
-    return jsonData["matches"][0]["threatType"];
+  try {
+    final response = await http.post(url, headers: header, body: body);
+    final jsonData = jsonDecode(response.body);
+    if (jsonData.toString() == '{}') {
+      return "SAFE";
+    } else {
+      appDataStorageManager.writeToFile(" " + requestedUrl);
+      return jsonData["matches"][0]["threatType"];
+    }
+  } catch (error) {
+    return "Error While Requesting To Server \n Check Internet Connection.";
   }
-  }
-  catch(error)
-  {
-   return "Error While Requesting To Server \n Check Internet Connection."; 
-  }
-  
 }
