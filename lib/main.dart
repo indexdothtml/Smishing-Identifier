@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smishing_identifier_application/pages/my_inbox.dart';
+import 'package:smishing_identifier_application/screens/my_inbox.dart';
 
 void main() => runApp(const MyApp());
 
