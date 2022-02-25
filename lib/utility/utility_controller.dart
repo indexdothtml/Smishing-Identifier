@@ -15,8 +15,6 @@ class UtilityController {
   }
 
   Future<String> fromExtracter(index) async {
-    String responseResult =
-        await extractLink((messages[index].body).toString());
-    return responseResult;
+    return await extractLink((messages[index].body).toString());
   }
 } // UtilityController class
