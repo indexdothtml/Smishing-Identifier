@@ -1,6 +1,4 @@
-import 'package:smishing_identifier_application/utility/storage_handler.dart';
-
-AppDataStorageManager appDataStorageManager = AppDataStorageManager();
+import 'package:smishing_identifier_application/utility/check_redirection.dart';
 
 Future<String> extractLink(String givenbody) async {
   String url = "";
@@ -42,8 +40,8 @@ Future<String> extractLink(String givenbody) async {
     }
   }
   if (url.isNotEmpty) {
-    String resultFromStorage = await appDataStorageManager.readFromFile(url);
-    return resultFromStorage;
+    String result = await redirectDetective(url);
+    return result;
   } else {
     return "No Link Found";
   }
