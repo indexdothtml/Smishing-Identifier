@@ -16,7 +16,7 @@ Future<String> redirectDetective(String url) async {
     client.close();
 
     if (response.statusCode >= 200 && response.statusCode <= 299) {
-      return await makeRequest(url);
+      return await appDataStorageManager.readFromFile(url);
     } else if (response.statusCode >= 300 && response.statusCode <= 399) {
       return redirectDetective(response.headers['location'].toString());
     } else if (response.statusCode >= 400 && response.statusCode <= 499) {
