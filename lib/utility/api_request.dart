@@ -24,9 +24,10 @@ Future<String> makeRequest(requestedUrl) async {
     final response = await http.post(url, headers: header, body: body);
     final jsonData = jsonDecode(response.body);
     if (jsonData.toString() == '{}') {
+      appDataStorageManager.writeToSafeFile(" " + requestedUrl);
       return "SAFE";
     } else {
-      appDataStorageManager.writeToFile(" " + requestedUrl);
+      appDataStorageManager.writeToThreatFile(" " + requestedUrl);
       return jsonData["matches"][0]["threatType"];
     }
   } catch (error) {
