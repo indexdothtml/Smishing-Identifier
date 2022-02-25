@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'package:smishing_identifier_application/utility/check_redirection.dart';
+import 'package:smishing_identifier_application/utility/api_request.dart';
 
 class AppDataStorageManager {
   Future<String> get _localPath async {
@@ -8,13 +8,26 @@ class AppDataStorageManager {
     return directory.path;
   }
 
-  Future<File> get _localFile async {
+  Future<File> get _localUnsafeFile async {
     final path = await _localPath;
     return File('$path/threatURLs.txt');
   }
 
-  void writeToFile(String unsafeURL) async {
-    final file = await _localFile;
+  Future<File> get _localSafeFile async {
+    final path = await _localPath;
+    return File('$path/safeURLs.txt');
+  }
+
+  void writeToThreatFile(String unsafeURL) async {
+    final file = await _localUnsafeFile;
+    final fileobj = await file.open(mode: FileMode.append);
+
+    await fileobj.writeString(unsafeURL);
+    await fileobj.close();
+  }
+
+  void writeToSafeFile(String unsafeURL) async {
+    final file = await _localSafeFile;
     final fileobj = await file.open(mode: FileMode.append);
 
     await fileobj.writeString(unsafeURL);
@@ -22,16 +35,22 @@ class AppDataStorageManager {
   }
 
   Future<String> readFromFile(String url) async {
-    final file = await _localFile;
+    final threatFile = await _localUnsafeFile;
+    final safeFile = await _localSafeFile;
 
-    var isFileExist = await file.exists();
+    var isThreatFileExist = await threatFile.exists();
+    var isSafeFileExist = await safeFile.exists();
 
-    if (isFileExist) {
-      final fileContents = await file.readAsString();
-      if (fileContents.contains(url)) {
+    if (isThreatFileExist && isSafeFileExist) {
+      final threatFileContents = await threatFile.readAsString();
+      final safeFileContents = await safeFile.readAsString();
+
+      if (threatFileContents.contains(url)) {
         return "UNSAFE";
+      } else if (safeFileContents.contains(url)) {
+        return "SAFE";
       } else {
-        final result = await redirectDetective(url);
+        final result = await makeRequest(url);
         if (result == "MALWARE" || result == "SOCIAL_ENGINEERING") {
           return "UNSAFE";
         } else {
@@ -39,7 +58,8 @@ class AppDataStorageManager {
         }
       }
     } else {
-      await file.create();
+      await threatFile.create();
+      await safeFile.create();
       return readFromFile(url);
     }
   }
