@@ -1,6 +1,9 @@
 import 'package:http/http.dart' as http;
 import 'package:smishing_identifier_application/utility/api_request.dart';
 
+//After URL got from extracter the redirectDetective check for the URL redirection.
+//This is important because, if we pass masked URL as it is to safe browsing server then it gives false result.
+//After finding actual URL, next step is to check the URL in local url dataset before sending to safe browsing server.
 Future<String> redirectDetective(String url) async {
   String localurl;
 

@@ -5,6 +5,9 @@ import 'package:smishing_identifier_application/utility/storage_handler.dart';
 
 AppDataStorageManager appDataStorageManager = AppDataStorageManager();
 
+//makeRequest function is the final process of Identification of URL condition.
+//If URL is not found inside local dataset then it is passed here in makeRequest function.
+//makeRequest function make the request to Google's Safe Browsing server for final and true identification using generated API key.
 Future<String> makeRequest(requestedUrl) async {
   final url = Uri.parse("https://safebrowsing.googleapis.com/v4/threatMatches:find?key=AIzaSyAvPztv_OzAJojxmHvNyi1De20qzubMLaY");
   final header = {"Content-Type": "application/json"};
@@ -23,6 +26,9 @@ Future<String> makeRequest(requestedUrl) async {
   try {
     final response = await http.post(url, headers: header, body: body);
     final jsonData = jsonDecode(response.body);
+
+    //The final result is returned and also stored in local dataset for futher refering.
+    //Storing result of url inside local dataset will very helpful in reducing API calls.
     if (jsonData.toString() == '{}') {
       appDataStorageManager.writeToSafeFile(" " + requestedUrl);
       return "SAFE";

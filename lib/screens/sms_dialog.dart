@@ -3,6 +3,8 @@ import 'package:smishing_identifier_application/utility/utility_controller.dart'
 
 UtilityController utilityController = UtilityController();
 
+//If Process ends then progress indicator stops and result is passed here in showSMSDialog function.
+//which display the result in both condtion of safe and unsafe.
 showSMSDialog(context, messages, String responseResult, index) {
   if (responseResult == "UNSAFE") {
     return showDialog(

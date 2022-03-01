@@ -1,5 +1,6 @@
 import 'package:smishing_identifier_application/utility/check_redirection.dart';
 
+//At very first the message get to the extractLink function which extract the URL from message body.
 Future<String> extractLink(String givenbody) async {
   String url = "";
 
@@ -39,6 +40,8 @@ Future<String> extractLink(String givenbody) async {
       break;
     }
   }
+
+  //After process of extraction if URL is present then URL is passed to redirectDetective function which is present inside check_redirection file.
   if (url.isNotEmpty) {
     String result = await redirectDetective(url);
     return result;
