@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smishing_identifier_application/screens/my_inbox.dart';
+import 'package:smishing_identifier_application/screens/main_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: const SMSInbox(),
+      home: const MainScreen(),
     );
   }
 }
