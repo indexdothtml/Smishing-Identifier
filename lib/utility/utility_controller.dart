@@ -4,7 +4,8 @@ import 'package:telephony/telephony.dart';
 class UtilityController {
   final Telephony telephony = Telephony.instance;
   List<SmsMessage> messages = [];
-
+  List<SmsMessage> harmfulMessages = [];
+  
   //chkInbox function is used to fetch all list of messages from inbox.
   //chkInbox function calles after new message arrives. At that condition list view generate new list.
   chkInbox() async {
