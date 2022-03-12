@@ -7,6 +7,17 @@ UtilityController utilityController = UtilityController();
 //which display the result in both condtion of safe and unsafe.
 showSMSDialog(context, messages, String responseResult, index) {
   if (responseResult == "UNSAFE") {
+    int flag = 0;
+  
+    for(int i = 0; i < utilityController.harmfulMessages.length; i++) {
+      if(utilityController.harmfulMessages[i].body == messages[index].body) {
+        flag = 1;
+      }
+    }
+  
+    if(flag != 1) {
+      utilityController.harmfulMessages.add(messages[index]);
+    }
     return showDialog(
         context: context,
         builder: (context) {
