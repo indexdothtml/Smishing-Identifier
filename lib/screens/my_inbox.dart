@@ -24,20 +24,7 @@ class _SMSInboxState extends State<SMSInbox> {
   @override
   //Constant app head part, contains app name and constant style.
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          "Smishing Identifier",
-          style: TextStyle(
-            letterSpacing: 3,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-
-      //Starting app body part from here, contains the future builder which creates the list of sms in runtime.
-      body: FutureBuilder(
+    return FutureBuilder(
           //Future builder contains the future which contains function call that helps in to generate message list.
           future: utilityController.chkInbox(),
           //Builder which is used to build the ListView, contains the input from future.
@@ -84,8 +71,8 @@ class _SMSInboxState extends State<SMSInbox> {
                 );
               },
             );
-          }),
-    );
+          });
+    
   }
 
   //onMessage function calls after new message arrived.
