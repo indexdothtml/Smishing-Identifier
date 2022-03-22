@@ -56,6 +56,17 @@ showSMSDialog(context, messages, String responseResult, index) {
               ));
         });
   } else {
+    int flag = 0;
+  
+    for(int i = 0; i < utilityController.safeMessages.length; i++) {
+      if(utilityController.safeMessages[i].body == messages[index].body) {
+        flag = 1;
+      }
+    }
+  
+    if(flag != 1) {
+      utilityController.safeMessages.add(messages[index]);
+    }
     return showDialog(
         context: context,
         builder: (context) {
