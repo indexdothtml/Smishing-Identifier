@@ -14,8 +14,8 @@ Future<String> makeRequest(requestedUrl) async {
   final body = jsonEncode({
     "client": {"clientId": "SmishingIdentifier", "clientVersion": "1.0.0"},
     "threatInfo": {
-      "threatTypes": ["MALWARE", "SOCIAL_ENGINEERING"],
-      "platformTypes": ["ANDROID", "IOS"],
+      "threatTypes": ["MALWARE", "SOCIAL_ENGINEERING", "THREAT_TYPE_UNSPECIFIED", "UNWANTED_SOFTWARE", "POTENTIALLY_HARMFUL_APPLICATION"],
+      "platformTypes": ["ALL_PLATFORMS"],
       "threatEntryTypes": ["URL"],
       "threatEntries": [
         {"url": "$requestedUrl"}
