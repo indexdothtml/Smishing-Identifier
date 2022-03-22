@@ -59,7 +59,7 @@ class AppDataStorageManager {
         return "SAFE";
       } else {
         final result = await makeRequest(url);
-        if (result == "MALWARE" || result == "SOCIAL_ENGINEERING") {
+        if (result != "SAFE") {
           return "UNSAFE";
         } else {
           return "SAFE";
