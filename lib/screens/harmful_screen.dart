@@ -28,14 +28,13 @@ class _HarmfulScreenState extends State<HarmfulScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: ListTile(
                     leading: const Icon(
-                      Icons.warning,
+                      Icons.warning_amber_rounded,
                       color: Colors.redAccent,
                     ),
                     title: Text(
                         utilityController.harmfulMessages[index].address.toString()),
                     subtitle: Text(
                       utilityController.harmfulMessages[index].body.toString(),
-                      maxLines: 2,
                     ),
                     style: ListTileStyle.drawer,
                   ),
