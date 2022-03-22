@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smishing_identifier_application/screens/harmful_screen.dart';
 import 'package:smishing_identifier_application/screens/my_inbox.dart';
-import 'package:smishing_identifier_application/screens/spam_screen.dart';
+import 'package:smishing_identifier_application/screens/safe_Screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({ Key? key }) : super(key: key);
@@ -38,8 +38,8 @@ class _MainScreenState extends State<MainScreen>
           controller: _tabController,
           tabs: const [
             Tab(text: "INBOX",),
-            Tab(text: "SPAMS",),
-            Tab(text: "HARMFUL",)
+            Tab(text: "SAFE",),
+            Tab(text: "UNSAFE",)
           ],
         ),
       ),
@@ -48,7 +48,7 @@ class _MainScreenState extends State<MainScreen>
         controller: _tabController, 
         children: const [
           SMSInbox(),
-          SpamScreen(),
+          SafeScreen(),
           HarmfulScreen()
         ],
         ),
