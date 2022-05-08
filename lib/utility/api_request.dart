@@ -15,7 +15,7 @@ Future<String> makeRequest(requestedUrl) async {
     "client": {"clientId": "SmishingIdentifier", "clientVersion": "1.0.0"},
     "threatInfo": {
       "threatTypes": ["MALWARE", "SOCIAL_ENGINEERING", "THREAT_TYPE_UNSPECIFIED", "UNWANTED_SOFTWARE", "POTENTIALLY_HARMFUL_APPLICATION"],
-      "platformTypes": ["ALL_PLATFORMS"],
+      "platformTypes": ["ANY_PLATFORM"],
       "threatEntryTypes": ["URL"],
       "threatEntries": [
         {"url": "$requestedUrl"}
