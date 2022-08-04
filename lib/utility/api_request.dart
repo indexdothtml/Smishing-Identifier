@@ -9,7 +9,7 @@ AppDataStorageManager appDataStorageManager = AppDataStorageManager();
 //If URL is not found inside local dataset then it is passed here in makeRequest function.
 //makeRequest function make the request to Google's Safe Browsing server for final and true identification using generated API key.
 Future<String> makeRequest(requestedUrl) async {
-  final url = Uri.parse("https://safebrowsing.googleapis.com/v4/threatMatches:find?key=AIzaSyAvPztv_OzAJojxmHvNyi1De20qzubMLaY");
+  final url = Uri.parse("https://safebrowsing.googleapis.com/v4/threatMatches:find?key=<YOUR_GOOGLE_SAFE_BROWSING_API_KEY>");
   final header = {"Content-Type": "application/json"};
   final body = jsonEncode({
     "client": {"clientId": "SmishingIdentifier", "clientVersion": "1.0.0"},
